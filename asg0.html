@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vector Operations</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400" style="border: 1px solid black; background: black;">
+        Please use a browser that supports "canvas"
+    </canvas>
+    
+    <div style="margin-top: 20px;">
+        <h3>Vector 1 (Red)</h3>
+        X: <input type="number" id="v1x" value="2.25" step="0.25">
+        Y: <input type="number" id="v1y" value="2.25" step="0.25">
+        
+        <h3>Vector 2 (Blue)</h3>
+        X: <input type="number" id="v2x" value="1.5" step="0.25">
+        Y: <input type="number" id="v2y" value="1.0" step="0.25">
+        
+        <br><br>
+        <button onclick="handleDrawEvent()">Draw Vectors</button>
+        
+        <br><br>
+        <select id="operation">
+            <option value="add">Add (v1 + v2)</option>
+            <option value="sub">Subtract (v1 - v2)</option>
+            <option value="mul">Multiply by scalar</option>
+            <option value="div">Divide by scalar</option>
+            <option value="normalize">Normalize</option>
+            <option value="angle">Angle between</option>
+            <option value="area">Area</option>
+        </select>
+        <input type="number" id="scalar" value="2" step="0.5" placeholder="Scalar value">
+        <button onclick="handleDrawOperationEvent()">Calculate</button>
+    </div>
+
+    <script src="lib/cuon-matrix-cse160.js"></script>
+    <script src="asg0.js"></script>
+</body>
+</html>
