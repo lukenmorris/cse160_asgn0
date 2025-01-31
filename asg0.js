@@ -81,56 +81,79 @@ function handleDrawOperationEvent() {
         parseFloat(document.getElementById('v2y').value),
         0
     ]);
-    
+
     // Draw original vectors
     drawVector(v1, "red");
     drawVector(v2, "blue");
-    
+
     // Get operation and perform calculation
     const operation = document.getElementById('operation').value;
     const scalar = parseFloat(document.getElementById('scalar').value);
-    
+    let resultVector;
+
     switch(operation) {
         case 'add': {
-            const v3 = new Vector3(v1);
-            v3.add(v2);
-            drawVector(v3, "green");
+            resultVector = new Vector3([
+                v1.elements[0] + v2.elements[0],
+                v1.elements[1] + v2.elements[1],
+                0
+            ]);
+            drawVector(resultVector, "green");
             break;
         }
         case 'sub': {
-            const v3 = new Vector3(v1);
-            v3.sub(v2);
-            drawVector(v3, "green");
+            resultVector = new Vector3([
+                v1.elements[0] - v2.elements[0],
+                v1.elements[1] - v2.elements[1],
+                0
+            ]);
+            drawVector(resultVector, "green");
             break;
         }
         case 'mul': {
-            const v3 = new Vector3(v1);
-            const v4 = new Vector3(v2);
-            v3.mul(scalar);
-            v4.mul(scalar);
-            drawVector(v3, "green");
-            drawVector(v4, "green");
+            let scaledV1 = new Vector3([
+                v1.elements[0] * scalar,
+                v1.elements[1] * scalar,
+                0
+            ]);
+            let scaledV2 = new Vector3([
+                v2.elements[0] * scalar,
+                v2.elements[1] * scalar,
+                0
+            ]);
+            drawVector(scaledV1, "green");
+            drawVector(scaledV2, "green");
             break;
         }
         case 'div': {
-            const v3 = new Vector3(v1);
-            const v4 = new Vector3(v2);
-            v3.div(scalar);
-            v4.div(scalar);
-            drawVector(v3, "green");
-            drawVector(v4, "green");
+            if (scalar !== 0) {
+                let scaledV1 = new Vector3([
+                    v1.elements[0] / scalar,
+                    v1.elements[1] / scalar,
+                    0
+                ]);
+                let scaledV2 = new Vector3([
+                    v2.elements[0] / scalar,
+                    v2.elements[1] / scalar,
+                    0
+                ]);
+                drawVector(scaledV1, "green");
+                drawVector(scaledV2, "green");
+            } else {
+                console.log("Error: Division by zero.");
+            }
             break;
         }
         case 'normalize': {
-            const v3 = new Vector3(v1);
-            const v4 = new Vector3(v2);
-            v3.normalize();
-            v4.normalize();
-            drawVector(v3, "green");
-            drawVector(v4, "green");
+            let normV1 = new Vector3(v1.elements);
+            let normV2 = new Vector3(v2.elements);
+            normV1.normalize();
+            normV2.normalize();
+            drawVector(normV1, "green");
+            drawVector(normV2, "green");
             console.log('Magnitudes after normalization:', 
-                       'v1:', v3.magnitude(), 
-                       'v2:', v4.magnitude());
+                        'v1:', normV1.magnitude(), 
+                        'v2:', normV2.magnitude());
             break;
         }
         case 'angle': {
@@ -145,6 +168,7 @@ function handleDrawOperationEvent() {
         }
     }
 }
+
 
 // Call main when the page loads
 window.onload = main;
